@@ -1,8 +1,17 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import PropTypes from "prop-types";
 
-const SectionHeading = ({ eyebrow, title, subtitle, align = 'center', light = false }) => {
+const SectionHeading = ({
+  eyebrow,
+  title,
+  subtitle,
+  align = "center",
+  light = false,
+}) => {
   return (
-    <div className={`mb-16 ${align === 'center' ? 'text-center' : 'text-left'}`}>
+    <div
+      className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}
+    >
       {eyebrow && (
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -25,7 +34,7 @@ const SectionHeading = ({ eyebrow, title, subtitle, align = 'center', light = fa
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.1 }}
         className={`text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-4 ${
-          light ? 'text-white' : 'text-white'
+          light ? "text-white" : "text-white"
         }`}
       >
         {title}
@@ -37,7 +46,7 @@ const SectionHeading = ({ eyebrow, title, subtitle, align = 'center', light = fa
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className={`text-lg max-w-2xl ${align === 'center' ? 'mx-auto' : ''} text-slate-400`}
+          className={`text-lg max-w-2xl ${align === "center" ? "mx-auto" : ""} text-slate-400`}
         >
           {subtitle}
         </motion.p>
@@ -49,11 +58,19 @@ const SectionHeading = ({ eyebrow, title, subtitle, align = 'center', light = fa
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.3 }}
         className={`mt-6 h-0.5 w-24 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full ${
-          align === 'center' ? 'mx-auto' : ''
+          align === "center" ? "mx-auto" : ""
         }`}
       />
     </div>
   );
+};
+
+SectionHeading.propTypes = {
+  eyebrow: PropTypes.node,
+  title: PropTypes.node.isRequired,
+  subtitle: PropTypes.node,
+  align: PropTypes.oneOf(["center", "left"]),
+  light: PropTypes.bool,
 };
 
 export default SectionHeading;
