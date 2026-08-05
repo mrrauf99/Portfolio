@@ -1,30 +1,31 @@
+"use client";
+
 import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-const useContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+type ContactFormData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
 
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+const EMPTY_FORM: ContactFormData = { name: "", email: "", subject: "", message: "" };
+const EMPTY_ERRORS: ContactFormData = { name: "", email: "", subject: "", message: "" };
 
+export function useContactForm() {
+  const [formData, setFormData] = useState<ContactFormData>(EMPTY_FORM);
+  const [errors, setErrors] = useState<ContactFormData>(EMPTY_ERRORS);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const validateForm = () => {
-    let tempErrors = { name: "", email: "", subject: "", message: "" };
+  const validateForm = (): boolean => {
+    const tempErrors: ContactFormData = { name: "", email: "", subject: "", message: "" };
     let isValid = true;
 
     if (!formData.name.trim()) {
@@ -64,16 +65,18 @@ const useContactForm = () => {
     return isValid;
   };
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    if (errors[e.target.name]) {
-      setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    const field = name as keyof ContactFormData;
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
     if (error) setError("");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     if (!validateForm()) {
       return;
@@ -83,6 +86,10 @@ const useContactForm = () => {
     setError("");
 
     try {
+      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+        throw new Error("EmailJS is not configured");
+      }
+
       const emailjs = await import("@emailjs/browser");
 
       await emailjs.send(
@@ -94,17 +101,15 @@ const useContactForm = () => {
           title: formData.subject,
           message: formData.message,
         },
-        EMAILJS_PUBLIC_KEY,
+        EMAILJS_PUBLIC_KEY
       );
 
       setSubmitted(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setErrors({ name: "", email: "", subject: "", message: "" });
+      setFormData(EMPTY_FORM);
+      setErrors(EMPTY_ERRORS);
     } catch (err) {
       console.error("EmailJS error:", err);
-      setError(
-        "Failed to send message. Please try again or email me directly at itxrauf99@gmail.com",
-      );
+      setError("Failed to send message. Please try again or email me directly at itxrauf99@gmail.com");
     } finally {
       setLoading(false);
     }
@@ -120,6 +125,4 @@ const useContactForm = () => {
     handleSubmit,
     error,
   };
-};
-
-export { useContactForm };
+}
