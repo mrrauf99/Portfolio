@@ -1,125 +1,63 @@
-<div align="center">
-  <h1>Abdul Rauf</h1>
-  <p>Full Stack Web Developer</p>
+# Portfolio
 
-  ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
-  ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite)
-  ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?logo=tailwindcss)
-  ![License](https://img.shields.io/github/license/mrrauf99/portfolio)
+Personal portfolio site for Abdul Rauf, a full stack web developer. Single-page site (hero, about, skills, projects, experience, contact) with an additional `/projects` index and per-project case-study pages at `/projects/[slug]`. All page content is data-driven (`data/*.ts`), so most content updates don't require touching component code.
 
-  <br />
+## Tech stack
 
-  <p align="center">
-    <a href="https://abdulrauf.dev">Live Demo</a>
-    •
-    <a href="#-features">Features</a>
-    •
-    <a href="#-getting-started">Getting Started</a>
-    •
-    <a href="#-contact">Contact</a>
-  </p>
-</div>
+- [Next.js 16](https://nextjs.org) (App Router) + [React 19](https://react.dev), TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com) (CSS-first config in `app/globals.css`, no `tailwind.config.*`)
+- [next-themes](https://github.com/pacocoursey/next-themes) for light/dark mode
+- [Framer Motion](https://www.framer.com/motion/) for animation
+- [EmailJS](https://www.emailjs.com/) (`@emailjs/browser`) for the client-side contact form
+- ESLint (`eslint-config-next`)
 
-## 🎯 Overview
+## Prerequisites
 
-This repository contains the source code for my personal portfolio website, built to showcase my projects, technical skills, and professional experience. It features a modern, responsive interface with smooth animations and a focus on performance, accessibility, and clean design.
+- Node.js (a version compatible with Next.js 16 / React 19)
+- npm
 
-## ✨ Features
+## Installation
 
-- **Responsive Design:** Fully optimized for mobile, tablet, and desktop viewing.
-- **Modern UI/UX:** Clean, dark-themed aesthetic with smooth Framer Motion animations.
-- **Project Showcase:** Detailed display of full-stack projects and technical achievements.
-- **Contact Integration:** Direct messaging capability powered by EmailJS.
-- **Resume Viewer/Download:** Direct access to view and download my professional resume.
-- **Smooth Scrolling Navigation:** Intuitive scroll behavior for a seamless user experience.
-- **Accessible UI:** Built with semantic HTML and accessibility best practices in mind.
-- **Optimized Performance:** Fast load times powered by Vite and optimized assets.
-- **SEO Friendly:** Configured with proper meta tags for search engine visibility.
-
-## 🛠️ Tech Stack
-
-- **Framework:** [React](https://reactjs.org/)
-- **Build Tool:** [Vite](https://vitejs.dev/)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Animations:** [Framer Motion](https://www.framer.com/motion/)
-- **Icons:** [Lucide React](https://lucide.dev/) & [React Icons](https://react-icons.github.io/react-icons/)
-- **Services:** [EmailJS](https://www.emailjs.com/)
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (v16 or higher recommended)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/mrrauf99/portfolio.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd portfolio
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-## 📜 Available Scripts
-
-In the project directory, you can run:
-
-- **`npm run dev`** - Starts the development server locally
-- **`npm run build`** - Builds the app for production to the `dist` folder
-- **`npm run lint`** - Runs ESLint to catch and report errors
-- **`npm run preview`** - Previews the production build locally
-
-## 📁 Project Structure
-
-```text
-├── public/
-│   ├── Abdul_Rauf.jpeg
-│   ├── Resume.pdf
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   ├── layout/      # Layout components (Navbar, Footer)
-│   │   ├── sections/    # Page sections (Hero, About, etc.)
-│   │   └── ui/          # Reusable UI elements
-│   ├── data/            # Static data (projects, skills)
-│   ├── hooks/           # Custom React hooks
-│   ├── App.jsx          # Main application component
-│   ├── main.jsx         # Application entry point
-│   └── index.css        # Global styles and Tailwind imports
-├── .gitignore           # Git ignore rules
-├── index.html           # Main HTML document
-├── package.json         # Dependencies and scripts
-├── postcss.config.js    # PostCSS configuration
-├── tailwind.config.js   # Tailwind CSS configuration
-└── vite.config.js       # Vite configuration
+```bash
+npm install
 ```
 
-## 🚀 Deployment
+## Environment variables
 
-This portfolio is deployed on Vercel.
+The contact form sends email via EmailJS and requires these variables (there is no `.env.example` in the repo — create a `.env` file locally):
 
-## 📬 Contact
+```
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=
+```
 
-- **LinkedIn:** [Abdul Rauf Ansari](https://www.linkedin.com/in/abdulrauf-dev/)
-- **Email:** [itxrauf99@gmail.com](mailto:itxrauf99@gmail.com)
+Values come from your EmailJS account (service, email template, and public key). Without them, the contact form shows a "not configured" error instead of sending.
 
-## 🤝 Contributing
+## Development
 
-This repository is intended for personal portfolio purposes.
+```bash
+npm run dev
+```
 
-You're welcome to fork it for learning, but please avoid copying the design, content, or branding.
+Open [http://localhost:3000](http://localhost:3000).
 
-## 📄 License
+## Production
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```bash
+npm run build
+npm run start
+```
 
----
+## Other commands
 
-⭐ If you like this project, consider giving it a star.
+```bash
+npm run lint       # ESLint (zero warnings allowed)
+npx tsc --noEmit   # type-check
+```
+
+No test suite is configured in this repo.
+
+## Deployment
+
+The repo is set up for deployment on [Vercel](https://vercel.com) (`.vercel` is gitignored, indicating local Vercel CLI usage). Connect the repository in Vercel and set the environment variables listed above in the project settings.
