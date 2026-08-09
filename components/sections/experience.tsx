@@ -16,7 +16,7 @@ export function Experience() {
         />
 
         <div className="relative mt-12">
-          <div className="absolute top-2 bottom-2 left-[5px] w-px bg-border" aria-hidden="true" />
+          <div className="absolute top-2 bottom-2 left-1.25 w-px bg-border" aria-hidden="true" />
 
           <ol className="space-y-10">
             {experiences.map((exp, index) => {
@@ -25,7 +25,7 @@ export function Experience() {
               return (
                 <li
                   key={exp.id}
-                  className="relative animate-[fade-up_0.7s_ease-out_both] pl-8"
+                  className="relative animate-[fade-up_0.7s_ease-out_both] pl-6 sm:pl-8"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <span

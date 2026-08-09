@@ -83,9 +83,7 @@ export function Navbar() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <div className="hidden sm:block">
-              <ThemeToggle />
-            </div>
+            <ThemeToggle />
             <button
               type="button"
               onClick={() => setMobileOpen((open) => !open)}
@@ -142,9 +140,6 @@ export function Navbar() {
                   </li>
                 );
               })}
-              <li className="pt-2 sm:hidden">
-                <ThemeToggle />
-              </li>
             </ul>
           </div>
         </div>
