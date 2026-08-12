@@ -38,7 +38,7 @@ export function SkillsTabs() {
               aria-selected={isActive}
               aria-controls={`skills-panel-${category.id}`}
               onClick={() => setActiveCategory(category.id)}
-              className={`rounded-sm border px-4 py-2 text-sm font-medium transition-colors duration-150 ${
+              className={`cursor-pointer rounded-sm border px-4 py-2 text-sm font-medium transition-colors duration-150 ${
                 isActive
                   ? "border-accent text-accent"
                   : "border-border text-text-muted hover:text-text"
@@ -74,9 +74,9 @@ export function SkillsTabs() {
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-sm border border-border">
                     <skill.icon style={{ color: skill.color, fontSize: "22px" }} aria-hidden="true" />
                   </div>
-                  <div className="mb-3 flex items-center justify-between">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-y-0.5">
                     <span className="text-sm font-medium text-text">{skill.name}</span>
-                    <span className="text-xs text-text-muted">{getProficiencyLabel(skill.level)}</span>
+                    <span className="shrink-0 text-xs text-text-muted">{getProficiencyLabel(skill.level)}</span>
                   </div>
                   <div
                     className="h-1.5 overflow-hidden rounded-full bg-border"

@@ -3,10 +3,6 @@
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 
-const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
 type ContactFormData = {
   name: string;
   email: string;
@@ -86,29 +82,22 @@ export function useContactForm() {
     setError("");
 
     try {
-      if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-        throw new Error("EmailJS is not configured");
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error ?? "Failed to send message");
       }
-
-      const emailjs = await import("@emailjs/browser");
-
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          name: formData.name,
-          email: formData.email,
-          title: formData.subject,
-          message: formData.message,
-        },
-        EMAILJS_PUBLIC_KEY
-      );
 
       setSubmitted(true);
       setFormData(EMPTY_FORM);
       setErrors(EMPTY_ERRORS);
     } catch (err) {
-      console.error("EmailJS error:", err);
+      console.error("Contact form error:", err);
       setError("Failed to send message. Please try again or email me directly at itxrauf99@gmail.com");
     } finally {
       setLoading(false);

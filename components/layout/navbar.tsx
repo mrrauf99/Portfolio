@@ -90,7 +90,7 @@ export function Navbar() {
               aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={mobileOpen}
               aria-controls="mobile-menu"
-              className="relative inline-flex h-9 w-9 items-center justify-center rounded-sm border border-border text-text-muted transition-colors duration-150 hover:border-accent hover:text-accent md:hidden"
+              className="relative inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-sm border border-border text-text-muted transition-colors duration-150 hover:border-accent hover:text-accent md:hidden"
             >
               <Menu
                 size={18}

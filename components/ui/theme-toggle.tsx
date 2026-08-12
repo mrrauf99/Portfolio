@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { useMounted } from "@/hooks/use-mounted";
 
 const classes =
-  "inline-flex h-9 w-9 items-center justify-center rounded-sm border border-border text-text-muted transition-colors duration-150 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+  "inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-sm border border-border text-text-muted transition-colors duration-150 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();

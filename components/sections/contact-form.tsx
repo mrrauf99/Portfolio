@@ -23,7 +23,7 @@ export function ContactForm() {
           <button
             type="button"
             onClick={() => setSubmitted(false)}
-            className="text-sm font-medium text-accent underline underline-offset-2 hover:text-accent-hover"
+            className="cursor-pointer text-sm font-medium text-accent underline underline-offset-2 hover:text-accent-hover"
           >
             Send another message
           </button>
@@ -141,7 +141,7 @@ export function ContactForm() {
           <button
             type="submit"
             disabled={loading}
-            className="flex w-full items-center justify-center gap-2 rounded-sm bg-accent py-3.5 text-sm font-medium text-accent-contrast transition-colors duration-150 hover:bg-accent-hover disabled:pointer-events-none disabled:opacity-60"
+            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-sm bg-accent py-3.5 text-sm font-medium text-accent-contrast transition-colors duration-150 hover:bg-accent-hover disabled:pointer-events-none disabled:opacity-60"
           >
             {loading ? (
               <>
