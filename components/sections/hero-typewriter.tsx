@@ -54,7 +54,7 @@ export function HeroTypewriter() {
   return (
     <span
       className="inline-block whitespace-nowrap"
-      style={{ minWidth: `${MAX_ROLE_LENGTH + 1}ch` }}
+      style={{ minWidth: `min(${MAX_ROLE_LENGTH + 1}ch, 100%)` }}
       aria-live="polite"
       aria-atomic="true"
     >

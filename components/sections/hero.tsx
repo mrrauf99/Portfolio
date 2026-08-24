@@ -31,7 +31,7 @@ export function Hero() {
   return (
     <section id="hero" className="scroll-mt-20 pt-32 pb-20 md:pt-40 md:pb-28">
       <Container className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
-        <div>
+        <div className="min-w-0">
           <h1 className="animate-[ink-focus_0.8s_cubic-bezier(0.16,1,0.3,1)_both] text-5xl leading-[1.1] font-medium text-text sm:text-6xl lg:text-7xl">
             Hi, I&apos;m <span className="text-accent">Abdul Rauf</span>
           </h1>
