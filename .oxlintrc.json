@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "jsx-a11y", "nextjs", "typescript", "unicorn"],
+  "options": {
+    "maxWarnings": 0
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/exhaustive-deps": "warn"
+  },
+  "ignorePatterns": [".claude/**", ".next/**", "out/**", "build/**", "next-env.d.ts"]
+}

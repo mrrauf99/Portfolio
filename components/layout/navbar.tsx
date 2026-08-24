@@ -1,12 +1,15 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
+import { ACTIVE_INDICATOR_SPRING, ICON_CROSSFADE_CLASSES } from "@/lib/constants";
 
 const NAV_LINKS = [
   { label: "Home", id: "hero", href: "/#hero" },
@@ -24,6 +27,7 @@ export function Navbar() {
   const { progress, scrolled } = useScrollProgress();
   const activeId = useActiveSection(SECTION_IDS);
   const pathname = usePathname();
+  const prefersReducedMotion = useReducedMotion();
 
   const isHome = pathname === "/";
 
@@ -55,10 +59,7 @@ export function Navbar() {
           scrolled ? "border-b border-border bg-bg/90 backdrop-blur-sm" : "border-b border-transparent"
         }`}
       >
-        <nav
-          aria-label="Primary"
-          className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8"
-        >
+        <Container as="nav" aria-label="Primary" className="flex h-16 items-center justify-between">
           <Link href="/#hero" className="font-serif text-lg font-medium text-text" onClick={closeMobileMenu}>
             Abdul <span className="text-accent">Rauf</span>
           </Link>
@@ -67,7 +68,7 @@ export function Navbar() {
             {NAV_LINKS.map((link) => {
               const active = isLinkActive(link.id);
               return (
-                <li key={link.id}>
+                <li key={link.id} className="relative">
                   <Link
                     href={link.href}
                     aria-current={active ? "true" : undefined}
@@ -77,6 +78,13 @@ export function Navbar() {
                   >
                     {link.label}
                   </Link>
+                  {active && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute inset-x-0 -bottom-1.5 h-0.5 bg-accent"
+                      transition={prefersReducedMotion ? { duration: 0 } : ACTIVE_INDICATOR_SPRING}
+                    />
+                  )}
                 </li>
               );
             })}
@@ -95,20 +103,20 @@ export function Navbar() {
               <Menu
                 size={18}
                 aria-hidden="true"
-                className={`absolute transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+                className={`${ICON_CROSSFADE_CLASSES} ${
                   mobileOpen ? "rotate-45 opacity-0" : "rotate-0 opacity-100"
                 }`}
               />
               <X
                 size={18}
                 aria-hidden="true"
-                className={`absolute transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+                className={`${ICON_CROSSFADE_CLASSES} ${
                   mobileOpen ? "rotate-0 opacity-100" : "-rotate-45 opacity-0"
                 }`}
               />
             </button>
           </div>
-        </nav>
+        </Container>
 
         <div
           id="mobile-menu"

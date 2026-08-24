@@ -5,10 +5,9 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function Projects() {
   return (
-    <section id="projects" className="scroll-mt-20 border-t border-border py-24">
+    <section id="projects" className="scroll-mt-20 border-t border-border py-16 md:py-24">
       <Container>
         <SectionHeading
-          eyebrow="Featured Work"
           title="Selected work"
           subtitle="A closer look at a few projects, including the problems I ran into and how I solved them."
         />

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "lib/og-image.tsx"
+        ],
+        "createdAt": "2026-08-24T16:29:04.643Z",
+        "reason": "Pre-existing corner-bracket decoration from the original app/opengraph-image.tsx and app/projects/[slug]/opengraph-image.tsx (both already shipped); relocated verbatim into a shared helper during dedup, not new design"
+      }
+    ]
+  }
+}

@@ -2,12 +2,11 @@
 
 import { motion } from "framer-motion";
 import { StatCounter } from "@/components/sections/stat-counter";
-import { useMotionPreset } from "@/hooks/use-motion-props";
+import { useMotionPreset, withStagger } from "@/hooks/use-motion-props";
 import type { Stat } from "@/types/experience";
 
 export function AboutStats({ stats }: { stats: Stat[] }) {
   const fade = useMotionPreset({ y: 16 });
-  const baseDelay = fade.transition.delay ?? 0;
 
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -17,7 +16,7 @@ export function AboutStats({ stats }: { stats: Stat[] }) {
           initial={fade.initial}
           whileInView={fade.visible}
           viewport={{ once: true }}
-          transition={{ ...fade.transition, delay: baseDelay + index * 0.1 }}
+          transition={withStagger(fade.transition, index, 0.1)}
         >
           <StatCounter label={stat.label} value={stat.value} suffix={stat.suffix} />
         </motion.div>

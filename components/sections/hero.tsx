@@ -1,5 +1,4 @@
 import { FileText } from "lucide-react";
-import Image from "next/image";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import {
   SiExpress,
@@ -13,7 +12,9 @@ import {
 } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { HeroPortrait } from "@/components/sections/hero-portrait";
 import { HeroTypewriter } from "@/components/sections/hero-typewriter";
+import { GITHUB_URL, LINKEDIN_URL } from "@/lib/constants";
 
 const TECH_STACK = [
   { Icon: SiReact, label: "React" },
@@ -31,7 +32,7 @@ export function Hero() {
     <section id="hero" className="scroll-mt-20 pt-32 pb-20 md:pt-40 md:pb-28">
       <Container className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <h1 className="animate-[fade-up_0.7s_ease-out_both] text-5xl leading-[1.1] font-medium text-text sm:text-6xl lg:text-7xl">
+          <h1 className="animate-[ink-focus_0.8s_cubic-bezier(0.16,1,0.3,1)_both] text-5xl leading-[1.1] font-medium text-text sm:text-6xl lg:text-7xl">
             Hi, I&apos;m <span className="text-accent">Abdul Rauf</span>
           </h1>
 
@@ -53,7 +54,7 @@ export function Hero() {
             </Button>
             <Button
               variant="outline"
-              href="https://github.com/mrrauf99"
+              href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit Abdul Rauf's GitHub profile"
@@ -63,7 +64,7 @@ export function Hero() {
             </Button>
             <Button
               variant="outline"
-              href="https://www.linkedin.com/in/abdulrauf-dev/"
+              href={LINKEDIN_URL}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit Abdul Rauf's LinkedIn profile"
@@ -75,10 +76,15 @@ export function Hero() {
 
           <ul
             aria-label="Core technologies"
-            className="mt-10 flex flex-wrap animate-[fade-up_0.7s_ease-out_both] items-center gap-5 text-text-muted [animation-delay:400ms]"
+            className="mt-10 flex flex-wrap items-center gap-5 text-text-muted"
           >
-            {TECH_STACK.map(({ Icon, label }) => (
-              <li key={label} title={label} className="transition-colors duration-150 hover:text-accent">
+            {TECH_STACK.map(({ Icon, label }, index) => (
+              <li
+                key={label}
+                title={label}
+                style={{ animationDelay: `${400 + index * 40}ms` }}
+                className="animate-[fade-up_0.5s_ease-out_both] transition-colors duration-150 hover:text-accent"
+              >
                 <Icon size={22} aria-hidden="true" />
                 <span className="sr-only">{label}</span>
               </li>
@@ -86,27 +92,7 @@ export function Hero() {
           </ul>
         </div>
 
-        <div className="relative mx-auto w-full max-w-sm animate-[fade-up_0.7s_ease-out_both] [animation-delay:150ms]">
-          <div
-            className="absolute -top-3 -left-3 h-10 w-10 border-t-2 border-l-2 border-accent"
-            aria-hidden="true"
-          />
-          <div
-            className="absolute -right-3 -bottom-3 h-10 w-10 border-r-2 border-b-2 border-accent"
-            aria-hidden="true"
-          />
-          <div className="aspect-square overflow-hidden rounded-md border border-border">
-            <Image
-              src="/Abdul_Rauf.jpeg"
-              alt="Abdul Rauf, Full Stack Web Developer"
-              width={480}
-              height={480}
-              sizes="(min-width: 1024px) 24rem, (min-width: 640px) 20rem, 16rem"
-              className="h-full w-full object-cover"
-              priority
-            />
-          </div>
-        </div>
+        <HeroPortrait />
       </Container>
     </section>
   );

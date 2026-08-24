@@ -35,6 +35,8 @@
 
   --shadow-elevated: 0 8px 24px -6px rgb(23 20 15 / 0.1),
     0 2px 8px -2px rgb(23 20 15 / 0.06);
+  --shadow-raised: 0 16px 36px -10px rgb(23 20 15 / 0.16),
+    0 4px 12px -4px rgb(23 20 15 / 0.1);
 
   --radius-sm: 2px;
   --radius-md: 6px;
@@ -52,6 +54,7 @@
   --accent-contrast: #0b0c0e;
 
   --shadow-elevated: none;
+  --shadow-raised: 0 16px 32px -8px rgb(0 0 0 / 0.35);
 }
 
 @theme inline {
@@ -82,6 +85,7 @@
   --font-serif: var(--font-fraunces);
 
   --shadow-elevated: var(--shadow-elevated);
+  --shadow-raised: var(--shadow-raised);
 
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
@@ -97,6 +101,8 @@
     color: var(--text);
     font-family: var(--font-sans);
     line-height: 1.6;
+    caret-color: var(--accent);
+    scrollbar-color: var(--border-strong) transparent;
   }
 
   h1,
@@ -110,6 +116,30 @@
     outline: 2px solid var(--accent);
     outline-offset: 3px;
     border-radius: var(--radius-sm);
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-contrast);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--border-strong);
+    border: 2px solid var(--bg);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-muted);
   }
 }
 
@@ -127,6 +157,20 @@
   from {
     opacity: 0;
     transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero headline's entrance: a smooth fade + rise, distinct in timing from
+   the fade-up used for supporting copy but without an animated blur filter
+   (blur transitions on large text composite poorly and read as jittery). */
+@keyframes ink-focus {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;

@@ -14,12 +14,11 @@ const TAGS = ["Clean Code", "Scalable Systems", "User-Centric Design", "System D
 
 export function About() {
   return (
-    <section id="about" className="scroll-mt-20 border-t border-border py-24">
+    <section id="about" className="scroll-mt-20 border-t border-border py-16 md:py-24">
       <Container>
         <SectionHeading
-          eyebrow="About Me"
-          title="Comfortable across the whole stack, from database to UI."
-          subtitle="Dedicated developer with 1+ year building production software across the full stack."
+          title="Full stack, in practice"
+          subtitle="1+ year building production software across the full stack."
         />
 
         <div className="mt-12 grid items-start gap-16 lg:grid-cols-2">
@@ -29,24 +28,19 @@ export function About() {
             </h3>
 
             <p className="leading-relaxed text-text-muted">
-              I&apos;m a dedicated Full Stack Developer with{" "}
-              <span className="font-medium text-text">1+ year</span> of building
-              production-ready software, spanning from multi-role publishing platforms to
-              real-time detection systems. I work across the entire stack so I can own
-              features end-to-end.
+              Over the past{" "}
+              <span className="font-medium text-text">1+ year</span>, I&apos;ve built
+              production-ready software end-to-end, from multi-role publishing platforms
+              to real-time detection systems. My stack centres on{" "}
+              <span className="font-medium text-text">React</span>,{" "}
+              <span className="font-medium text-text">Node.js &amp; Express</span>, and{" "}
+              <span className="font-medium text-text">PostgreSQL &amp; MongoDB</span>, with
+              some Python and scikit-learn on the side for ML experiments.
             </p>
 
             <p className="leading-relaxed text-text-muted">
-              My stack centres on <span className="font-medium text-text">React</span>,{" "}
-              <span className="font-medium text-text">Node.js &amp; Express</span>, and
-              databases like <span className="font-medium text-text">PostgreSQL &amp; MongoDB</span>.
-              I&apos;ve also shipped a Flutter mobile app with on-device ML and a scikit-learn
-              disease prediction model.
-            </p>
-
-            <p className="leading-relaxed text-text-muted">
-              I care about clean architecture, readable code, and shipping things that
-              actually work in production, not just on localhost.
+              I like owning a feature completely rather than handing it off halfway, and
+              I care about code that actually works in production, not just on localhost.
             </p>
 
             <div className="flex flex-wrap gap-2 pt-1">

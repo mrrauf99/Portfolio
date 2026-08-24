@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { ContactEmail, contactEmailText } from "@/emails/contact-email";
+import { CONTACT_EMAIL } from "@/lib/constants";
+import { EMAIL_REGEX } from "@/lib/validation";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type ContactPayload = {
   name: string;
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 
   const { error } = await resend.emails.send({
     from: "Portfolio Contact <contact@abdulrauf.dev>",
-    to: "itxrauf99@gmail.com",
+    to: CONTACT_EMAIL,
     replyTo: email,
     subject: `Portfolio contact: ${subject}`,
     react: ContactEmail({ name, email, subject, message }),

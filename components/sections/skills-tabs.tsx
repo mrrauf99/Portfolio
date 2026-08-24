@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { skillCategories } from "@/data/skills";
 import { useMotionPreset } from "@/hooks/use-motion-props";
+import { ACTIVE_INDICATOR_SPRING } from "@/lib/constants";
 import { getProficiencyLabel } from "@/lib/utils";
 
 export function SkillsTabs() {
@@ -38,13 +39,22 @@ export function SkillsTabs() {
               aria-selected={isActive}
               aria-controls={`skills-panel-${category.id}`}
               onClick={() => setActiveCategory(category.id)}
-              className={`cursor-pointer rounded-sm border px-4 py-2 text-sm font-medium transition-colors duration-150 ${
+              className={`relative cursor-pointer rounded-sm border px-4 py-2 text-sm font-medium transition-[color,border-color] duration-150 active:scale-[0.97] ${
                 isActive
-                  ? "border-accent text-accent"
+                  ? "border-accent text-accent-hover"
                   : "border-border text-text-muted hover:text-text"
               }`}
             >
-              {category.title} <span>({category.skills.length})</span>
+              {isActive && (
+                <motion.span
+                  layoutId="skills-tab-active"
+                  className="absolute inset-0 rounded-sm bg-accent/15"
+                  transition={prefersReducedMotion ? { duration: 0 } : ACTIVE_INDICATOR_SPRING}
+                />
+              )}
+              <span className="relative">
+                {category.title} <span>({category.skills.length})</span>
+              </span>
             </button>
           );
         })}
@@ -78,8 +88,11 @@ export function SkillsTabs() {
                     <span className="text-sm font-medium text-text">{skill.name}</span>
                     <span className="shrink-0 text-xs text-text-muted">{getProficiencyLabel(skill.level)}</span>
                   </div>
+                  {/* Native <progress> can't host the animated accent fill as a styled
+                      child element, so the ARIA progressbar pattern is used instead. */}
                   <div
                     className="h-1.5 overflow-hidden rounded-full bg-border"
+                    // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
                     role="progressbar"
                     aria-valuenow={skill.level}
                     aria-valuemin={0}

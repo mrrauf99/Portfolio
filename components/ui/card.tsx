@@ -20,7 +20,8 @@ export function Card({ children, hover = false, className, style }: CardProps) {
       style={style}
       className={cn(
         "rounded-md border border-border bg-bg-raised shadow-elevated",
-        hover && "transition-[box-shadow,border-color] duration-200 hover:shadow-elevated hover:border-border-strong",
+        hover &&
+          "transition-[box-shadow,border-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-border-strong hover:shadow-raised",
         className
       )}
     >

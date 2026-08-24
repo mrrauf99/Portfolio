@@ -12,6 +12,14 @@ export function useAnimatedCounter(end: number, duration = 1800) {
   useEffect(() => {
     if (!isInView || reduceMotion) return;
 
+    // A count from 0 up to 1 has nowhere to go: Math.floor(1 * eased) stays 0
+    // for nearly the whole duration and only flips to 1 in the last frame,
+    // which reads as the stat popping in late instead of counting up.
+    if (end <= 1) {
+      const frame = requestAnimationFrame(() => setCount(end));
+      return () => cancelAnimationFrame(frame);
+    }
+
     let frame = 0;
     const startTime = performance.now();
 

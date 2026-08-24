@@ -3,9 +3,9 @@
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useMounted } from "@/hooks/use-mounted";
+import { ICON_BUTTON_CLASSES, ICON_CROSSFADE_CLASSES } from "@/lib/constants";
 
-const classes =
-  "inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-sm border border-border text-text-muted transition-colors duration-150 hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+const classes = `relative cursor-pointer ${ICON_BUTTON_CLASSES}`;
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -24,7 +24,16 @@ export function ThemeToggle() {
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       className={classes}
     >
-      {isDark ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}
+      <Sun
+        size={16}
+        aria-hidden="true"
+        className={`${ICON_CROSSFADE_CLASSES} ${isDark ? "rotate-90 opacity-0" : "rotate-0 opacity-100"}`}
+      />
+      <Moon
+        size={16}
+        aria-hidden="true"
+        className={`${ICON_CROSSFADE_CLASSES} ${isDark ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"}`}
+      />
     </button>
   );
 }

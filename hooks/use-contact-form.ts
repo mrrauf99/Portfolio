@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
+import { CONTACT_EMAIL } from "@/lib/constants";
+import { EMAIL_REGEX } from "@/lib/validation";
 
 type ContactFormData = {
   name: string;
@@ -32,11 +34,10 @@ export function useContactForm() {
       isValid = false;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
       tempErrors.email = "Email is required";
       isValid = false;
-    } else if (!emailRegex.test(formData.email)) {
+    } else if (!EMAIL_REGEX.test(formData.email)) {
       tempErrors.email = "Please enter a valid email address";
       isValid = false;
     }
@@ -98,7 +99,7 @@ export function useContactForm() {
       setErrors(EMPTY_ERRORS);
     } catch (err) {
       console.error("Contact form error:", err);
-      setError("Failed to send message. Please try again or email me directly at itxrauf99@gmail.com");
+      setError(`Failed to send message. Please try again or email me directly at ${CONTACT_EMAIL}`);
     } finally {
       setLoading(false);
     }

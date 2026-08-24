@@ -8,13 +8,13 @@ export const experiences: Experience[] = [
     type: "Freelance & Personal Projects",
     period: "Jan 2025 – Present",
     description:
-      "Designed and shipped production-ready software across the full stack: from multi-role web platforms and real-time detection systems to mobile apps and ML-based health tools. Owned every phase: architecture, frontend, backend, database, and deployment.",
+      "Designed and shipped production-ready software across the full stack, from multi-role web platforms and real-time detection systems to ML-based health tools. Owned every phase: architecture, frontend, backend, database, and deployment.",
     achievements: [
       "Shipped Article Hub: a full-stack publishing platform with RBAC, JWT auth, and PostgreSQL",
       "Built BotGuard Lab: a bot detection platform using behavioral heuristics and real-time risk scoring",
       "Developed Symptom Checker AI: a machine learning healthcare assistant with 92%+ accuracy",
-      "Created an on-device object detection mobile app using Flutter and TensorFlow Lite",
-      "Delivered 16+ projects across web, desktop, mobile, and ML domains",
+      "Created an on-device object detection app using Flutter and TensorFlow Lite",
+      "Delivered 16+ projects across web, desktop, and ML domains",
     ],
     tech: ["React", "Node.js", "Express.js", "PostgreSQL", "MongoDB", "Python", "C#", "Flutter"],
   },
@@ -25,7 +25,7 @@ export const experiences: Experience[] = [
     type: "Education",
     period: "2024 – 2028 (In Progress)",
     description:
-      "Studying core computer science fundamentals including data structures, algorithms, database systems, software engineering, and machine learning at one of Pakistan's leading engineering universities.",
+      "Studying core computer science fundamentals: data structures, algorithms, database systems, software engineering, and machine learning.",
     achievements: [
       "Coursework in data structures, algorithms, and software engineering principles",
       "Applying machine learning techniques in academic and personal projects",

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Divider } from "@/components/ui/divider";
+import { Reveal } from "@/components/ui/reveal";
 import { projects } from "@/data/projects";
 import { SITE_NAME, SITE_URL } from "@/lib/constants";
 import { projectJsonLd } from "@/lib/json-ld";
@@ -110,7 +111,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {project.stats.map((stat) => (
             <Card key={stat.label} className="p-4 text-center">
-              <div className="text-xl font-medium text-accent">{stat.value}</div>
+              <div className="text-xl font-medium tabular-nums text-accent">{stat.value}</div>
               <div className="mt-1 text-xs text-text-muted">{stat.label}</div>
             </Card>
           ))}
@@ -123,7 +124,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           <p className="mt-4 leading-relaxed text-text-muted">{project.problem}</p>
         </section>
 
-        <section className="mt-12">
+        <Reveal y={16} duration={0.5} className="mt-12" as="section">
           <h2 className="text-2xl font-medium text-text">Approach</h2>
           <ul className="mt-4 space-y-3">
             {project.approach.map((step) => (
@@ -133,9 +134,9 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
               </li>
             ))}
           </ul>
-        </section>
+        </Reveal>
 
-        <section className="mt-12">
+        <Reveal y={16} duration={0.5} className="mt-12" as="section">
           <h2 className="text-2xl font-medium text-text">Key decisions</h2>
           <div className="mt-4 space-y-4">
             {project.keyDecisions.map((decision) => (
@@ -145,9 +146,9 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
               </Card>
             ))}
           </div>
-        </section>
+        </Reveal>
 
-        <section className="mt-12">
+        <Reveal y={16} duration={0.5} className="mt-12" as="section">
           <h2 className="text-2xl font-medium text-text">Tech stack</h2>
           <div className="mt-4 flex flex-wrap gap-2">
             {project.techStack.map((tech) => (
@@ -156,10 +157,10 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
               </Badge>
             ))}
           </div>
-        </section>
+        </Reveal>
 
         {project.outcomes && project.outcomes.length > 0 && (
-          <section className="mt-12">
+          <Reveal y={16} duration={0.5} className="mt-12" as="section">
             <h2 className="text-2xl font-medium text-text">Outcomes</h2>
             <ul className="mt-4 space-y-3">
               {project.outcomes.map((outcome) => (
@@ -169,7 +170,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
                 </li>
               ))}
             </ul>
-          </section>
+          </Reveal>
         )}
 
         <Divider className="my-12" />

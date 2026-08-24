@@ -14,7 +14,7 @@ export function StatCounter({ label, value, suffix }: StatCounterProps) {
 
   return (
     <Card className="p-6 text-center">
-      <div ref={ref} className="text-4xl font-medium text-accent">
+      <div ref={ref} className="text-4xl font-medium tabular-nums text-accent">
         {count}
         {suffix}
       </div>

@@ -8,10 +8,9 @@ const SkillsTabs = dynamic(() =>
 
 export function Skills() {
   return (
-    <section id="skills" className="scroll-mt-20 border-t border-border py-24">
+    <section id="skills" className="scroll-mt-20 border-t border-border py-16 md:py-24">
       <Container>
         <SectionHeading
-          eyebrow="Skills"
           title="Technical skills"
           subtitle="Technologies and tools I use to bring ideas from concept to production."
         />

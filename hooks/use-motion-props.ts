@@ -73,3 +73,9 @@ export function useMotionPreset({
     transition: reduceMotion ? { duration: 0 } : { duration, delay, ease: [0.25, 0.46, 0.45, 0.94] },
   };
 }
+
+/** Adds a per-index stagger offset on top of a preset's base delay, for lists of `motion` items sharing one `useMotionPreset` call. */
+export function withStagger(transition: Transition, index: number, step: number): Transition {
+  const baseDelay = "delay" in transition ? (transition.delay ?? 0) : 0;
+  return { ...transition, delay: baseDelay + index * step };
+}

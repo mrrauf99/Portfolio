@@ -2,6 +2,7 @@ import { GrOracle } from "react-icons/gr";
 import {
   SiCplusplus,
   SiCss,
+  SiDocker,
   SiExpress,
   SiGit,
   SiGithub,
@@ -62,6 +63,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "Git", icon: SiGit, color: "#F05032", level: 88 },
       { name: "GitHub", icon: SiGithub, color: "var(--text)", level: 90 },
+      { name: "Docker", icon: SiDocker, color: "#2496ED", level: 80 },
     ],
   },
 ];
