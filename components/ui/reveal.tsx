@@ -1,8 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
-import { useMotionPreset } from "@/hooks/use-motion-props";
 
 type RevealProps = {
   children: ReactNode;
@@ -15,32 +14,16 @@ type RevealProps = {
 };
 
 /**
- * Scroll-triggered fade/rise for below-the-fold content. Wraps
- * useMotionPreset's whileInView pattern so every section gets the same
- * reduced-motion handling instead of a CSS keyframe that already finished
- * playing (off-screen, on mount) before the visitor ever scrolls to it.
+ * Scroll-triggered fade/rise for below-the-fold content. The framer-motion
+ * implementation (reveal-motion.tsx) is loaded through `dynamic()` from here
+ * — a Client Component — rather than from each Server Component that renders
+ * a section (about.tsx, experience.tsx, etc.), because a dynamic import only
+ * actually code-splits when it originates in a Client Component. Every
+ * `Reveal` usage sits below the fold, so deferring its chunk costs nothing
+ * visible: it still SSRs (default `ssr: true`), so the wrapped content is in
+ * the initial HTML either way, just painted invisible (opacity: 0) until
+ * scrolled into view — same as before this split.
  */
-export function Reveal({
-  children,
-  className,
-  y = 20,
-  delay = 0,
-  duration,
-  once = true,
-  as = "div",
-}: RevealProps) {
-  const fade = useMotionPreset({ y, delay, ...(duration !== undefined ? { duration } : {}) });
-  const MotionTag = as === "section" ? motion.section : motion.div;
-
-  return (
-    <MotionTag
-      className={className}
-      initial={fade.initial}
-      whileInView={fade.visible}
-      viewport={{ once, margin: "-80px" }}
-      transition={fade.transition}
-    >
-      {children}
-    </MotionTag>
-  );
-}
+export const Reveal = dynamic<RevealProps>(() =>
+  import("@/components/ui/reveal-motion").then((mod) => mod.RevealMotion)
+);

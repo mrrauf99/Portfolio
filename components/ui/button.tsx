@@ -18,6 +18,7 @@ type ButtonAsButton = CommonProps &
 type ButtonAsLink = CommonProps &
   Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "className" | "children"> & {
     href: string;
+    prefetch?: boolean;
   };
 
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
@@ -40,9 +41,9 @@ export function Button({ variant = "primary", size = "md", className, children, 
   const classes = cn(baseClasses, variantClasses[variant], sizeClasses[size], className);
 
   if ("href" in rest) {
-    const { href, ...anchorProps } = rest;
+    const { href, prefetch, ...anchorProps } = rest;
     return (
-      <Link href={href} className={classes} {...anchorProps}>
+      <Link href={href} prefetch={prefetch} className={classes} {...anchorProps}>
         {children}
       </Link>
     );

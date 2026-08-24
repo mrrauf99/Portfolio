@@ -47,7 +47,7 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap animate-[fade-up_0.7s_ease-out_both] gap-3 [animation-delay:300ms]">
-            <Button href="/Resume.pdf" target="_blank" rel="noopener noreferrer">
+            <Button href="/Resume.pdf" prefetch={false} target="_blank" rel="noopener noreferrer">
               <FileText size={16} aria-hidden="true" />
               View Resume
               <span className="sr-only"> (opens in new tab)</span>

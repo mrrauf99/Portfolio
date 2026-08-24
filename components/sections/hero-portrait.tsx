@@ -1,6 +1,6 @@
 import Image from "next/image";
 import heroPortrait from "@/public/Abdul_Rauf.jpeg";
-import { HeroPortraitTilt } from "@/components/sections/hero-portrait-tilt";
+import { HeroPortraitTilt } from "@/components/sections/hero-portrait-tilt-lazy";
 
 /**
  * Same fade-up used by the paragraph/buttons/tech list, at its own slot in
@@ -35,7 +35,8 @@ export function HeroPortrait() {
             placeholder="blur"
             sizes="(min-width: 1024px) 24rem, (min-width: 640px) 20rem, 16rem"
             className="h-full w-full object-cover"
-            priority
+            preload
+            fetchPriority="high"
           />
         </div>
       </HeroPortraitTilt>

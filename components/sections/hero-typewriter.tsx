@@ -13,6 +13,14 @@ const ROLES = [
   "Problem Solver",
 ] as const;
 
+// Reserves a box exactly as wide as the longest role (+1ch for the cursor) so
+// every later type/delete frame repaints inside the same rect the SSR'd first
+// paint already claimed. Without this, each shorter-then-regrowing role was
+// still a legal *new* LCP candidate — real PageSpeed runs caught the LCP
+// timestamp pinned to a mid-animation frame ("MERN Stac|") minutes into the
+// loop instead of the actual first paint, because the box kept resizing.
+const MAX_ROLE_LENGTH = Math.max(...ROLES.map((role) => role.length));
+
 export function HeroTypewriter() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState<string>(ROLES[0]);
@@ -44,7 +52,12 @@ export function HeroTypewriter() {
   }, [displayText, isDeleting, roleIndex]);
 
   return (
-    <span className="inline-block" aria-live="polite" aria-atomic="true">
+    <span
+      className="inline-block whitespace-nowrap"
+      style={{ minWidth: `${MAX_ROLE_LENGTH + 1}ch` }}
+      aria-live="polite"
+      aria-atomic="true"
+    >
       <span>{displayText}</span>
       <span
         className="ml-0.5 inline-block text-accent animate-[blink_1.1s_step-end_infinite]"
