@@ -1,26 +1,27 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { StatCounter } from "@/components/sections/stat-counter";
-import { useMotionPreset, withStagger } from "@/hooks/use-motion-props";
+import { useInView } from "@/hooks/use-in-view";
 import type { Stat } from "@/types/experience";
 
 export function AboutStats({ stats }: { stats: Stat[] }) {
-  const fade = useMotionPreset({ y: 16 });
+  const { ref, isInView } = useInView({ once: true, rootMargin: "-40px" });
 
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <div ref={ref} className="grid grid-cols-2 gap-4 md:grid-cols-4">
       {stats.map((stat, index) => (
-        <motion.div
+        <div
           key={stat.label}
-          initial={fade.initial}
-          whileInView={fade.visible}
-          viewport={{ once: true }}
-          transition={withStagger(fade.transition, index, 0.1)}
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateY(0)" : "translateY(16px)",
+            transition: `opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`,
+          }}
         >
           <StatCounter label={stat.label} value={stat.value} suffix={stat.suffix} />
-        </motion.div>
+        </div>
       ))}
     </div>
   );
 }
+

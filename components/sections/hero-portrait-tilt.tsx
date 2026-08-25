@@ -1,54 +1,49 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
-import type { ReactNode } from "react";
-import { useRef } from "react";
-
-const SPRING = { stiffness: 220, damping: 20, mass: 0.4 };
+import { useRef, useState, type ReactNode } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 /**
- * Cursor-driven tilt, like tipping a framed print to catch the light — the
- * hero's one ongoing interactive touch, layered on top of the on-load
- * entrance rather than replacing it. Pure progressive enhancement: it
- * starts at an identity transform, so it never affects what paints before
- * hydration (unlike the entrance itself, which stays plain CSS for exactly
- * that reason). Disabled for reduced-motion and on touch/coarse pointers,
- * where a hover-tracked tilt has no equivalent.
+ * 3D cursor tilt on hover for desktop pointers.
  */
 export function HeroPortraitTilt({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
-
-  const pointerX = useMotionValue(0.5);
-  const pointerY = useMotionValue(0.5);
-  const rotateX = useSpring(useTransform(pointerY, [0, 1], [7, -7]), SPRING);
-  const rotateY = useSpring(useTransform(pointerX, [0, 1], [-7, 7]), SPRING);
-  const scale = useSpring(1, SPRING);
+  const [transform, setTransform] = useState("perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)");
+  const [isHovered, setIsHovered] = useState(false);
 
   function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
     if (prefersReducedMotion || event.pointerType !== "mouse") return;
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
-    pointerX.set((event.clientX - rect.left) / rect.width);
-    pointerY.set((event.clientY - rect.top) / rect.height);
-    scale.set(1.02);
+
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    const rotateX = ((0.5 - y) * 14).toFixed(2);
+    const rotateY = ((x - 0.5) * 14).toFixed(2);
+
+    setIsHovered(true);
+    setTransform(`perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`);
   }
 
   function handlePointerLeave() {
-    pointerX.set(0.5);
-    pointerY.set(0.5);
-    scale.set(1);
+    setIsHovered(false);
+    setTransform("perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)");
   }
 
   return (
-    <motion.div
+    <div
       ref={ref}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
-      style={{ rotateX, rotateY, scale, transformPerspective: 800 }}
-      className="[transform-style:preserve-3d]"
+      style={{
+        transform,
+        transition: isHovered ? "transform 0.1s ease-out" : "transform 0.5s ease-out",
+        transformStyle: "preserve-3d",
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
+

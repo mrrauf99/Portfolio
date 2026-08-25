@@ -2,13 +2,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/*
- * Editorial Ink — warm ink on warm paper.
- * Neutral ramp is deliberately warm-tinted (not gray), anchored at the two
- * theme extremes: ink-50/ink-100 ≈ light bg/dark text, ink-900/ink-950 ≈
- * light text/dark bg. Semantic tokens below are defined per theme rather
- * than mirror-inverted — accent hover deepens in light, brightens in dark.
- */
+/* Warm editorial color palette and design tokens */
 :root {
   --ink-50: #fafaf7;
   --ink-100: #f2efe9;
@@ -164,9 +158,7 @@
   }
 }
 
-/* Hero headline's entrance: a smooth fade + rise, distinct in timing from
-   the fade-up used for supporting copy but without an animated blur filter
-   (blur transitions on large text composite poorly and read as jittery). */
+/* Hero headline smooth fade and rise entrance */
 @keyframes ink-focus {
   from {
     opacity: 0;

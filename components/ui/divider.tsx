@@ -5,11 +5,7 @@ type DividerProps = {
   className?: string;
 };
 
-/**
- * Structural hairline rule — the replacement for glow/orb decoration.
- * `accent` renders a short, heavier accent-colored segment used to mark
- * section starts or pull quotes rather than a full-width divider.
- */
+/** Structural divider line */
 export function Divider({ variant = "hairline", className }: DividerProps) {
   if (variant === "accent") {
     return <div className={cn("h-0.5 w-12 bg-accent", className)} aria-hidden="true" />;

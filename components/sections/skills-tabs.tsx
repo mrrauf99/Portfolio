@@ -1,11 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { skillCategories } from "@/data/skills";
-import { useMotionPreset } from "@/hooks/use-motion-props";
-import { ACTIVE_INDICATOR_SPRING } from "@/lib/constants";
 import { getProficiencyLabel } from "@/lib/utils";
 
 export function SkillsTabs() {
@@ -21,10 +18,6 @@ export function SkillsTabs() {
     []
   );
 
-  const panelFade = useMotionPreset({ duration: 0.3 });
-  const cardFade = useMotionPreset({ y: 16, duration: 0.35 });
-  const prefersReducedMotion = useReducedMotion();
-
   return (
     <div>
       <div role="tablist" aria-label="Skill categories" className="flex flex-wrap gap-2">
@@ -39,20 +32,13 @@ export function SkillsTabs() {
               aria-selected={isActive}
               aria-controls={`skills-panel-${category.id}`}
               onClick={() => setActiveCategory(category.id)}
-              className={`relative cursor-pointer rounded-sm border px-4 py-2 text-sm font-medium transition-[color,border-color] duration-150 active:scale-[0.97] ${
+              className={`relative cursor-pointer rounded-sm border px-4 py-2 text-sm font-medium transition-all duration-150 active:scale-[0.97] ${
                 isActive
-                  ? "border-accent text-accent-hover"
+                  ? "border-accent bg-accent/15 text-accent-hover"
                   : "border-border text-text-muted hover:text-text"
               }`}
             >
-              {isActive && (
-                <motion.span
-                  layoutId="skills-tab-active"
-                  className="absolute inset-0 rounded-sm bg-accent/15"
-                  transition={prefersReducedMotion ? { duration: 0 } : ACTIVE_INDICATOR_SPRING}
-                />
-              )}
-              <span className="relative">
+              <span>
                 {category.title} <span>({category.skills.length})</span>
               </span>
             </button>
@@ -60,62 +46,51 @@ export function SkillsTabs() {
         })}
       </div>
 
-      <AnimatePresence mode="wait">
-        {active && (
-          <motion.div
-            key={active.id}
-            id={`skills-panel-${active.id}`}
-            role="tabpanel"
-            aria-labelledby={`skills-tab-${active.id}`}
-            initial={panelFade.initial}
-            animate={panelFade.visible}
-            exit={{ opacity: 0 }}
-            transition={panelFade.transition}
-            className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
-          >
-            {active.skills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                initial={cardFade.initial}
-                animate={cardFade.visible}
-                transition={{ ...cardFade.transition, delay: index * 0.05 }}
-              >
-                <Card hover className="p-5">
-                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-sm border border-border">
-                    <skill.icon style={{ color: skill.color, fontSize: "22px" }} aria-hidden="true" />
-                  </div>
-                  <div className="mb-3 flex flex-wrap items-center justify-between gap-y-0.5">
-                    <span className="text-sm font-medium text-text">{skill.name}</span>
-                    <span className="shrink-0 text-xs text-text-muted">{getProficiencyLabel(skill.level)}</span>
-                  </div>
-                  {/* Native <progress> can't host the animated accent fill as a styled
-                      child element, so the ARIA progressbar pattern is used instead. */}
+      {active && (
+        <div
+          key={active.id}
+          id={`skills-panel-${active.id}`}
+          role="tabpanel"
+          aria-labelledby={`skills-tab-${active.id}`}
+          className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 animate-[fade-up_0.35s_ease-out]"
+        >
+          {active.skills.map((skill, index) => (
+            <div
+              key={skill.name}
+              style={{
+                animation: `fade-up 0.35s ease-out ${index * 0.04}s both`,
+              }}
+            >
+              <Card hover className="p-5">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-sm border border-border">
+                  <skill.icon style={{ color: skill.color, fontSize: "22px" }} aria-hidden="true" />
+                </div>
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-y-0.5">
+                  <span className="text-sm font-medium text-text">{skill.name}</span>
+                  <span className="shrink-0 text-xs text-text-muted">{getProficiencyLabel(skill.level)}</span>
+                </div>
+                <div
+                  className="h-1.5 overflow-hidden rounded-full bg-border"
+                  // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
+                  role="progressbar"
+                  aria-valuenow={skill.level}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label={`${skill.name} proficiency ${skill.level}%`}
+                >
                   <div
-                    className="h-1.5 overflow-hidden rounded-full bg-border"
-                    // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
-                    role="progressbar"
-                    aria-valuenow={skill.level}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-label={`${skill.name} proficiency ${skill.level}%`}
-                  >
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${skill.level}%` }}
-                      transition={{
-                        duration: prefersReducedMotion ? 0 : 1,
-                        delay: prefersReducedMotion ? 0 : index * 0.05 + 0.15,
-                        ease: "easeOut",
-                      }}
-                      className="h-full rounded-full bg-accent"
-                    />
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+                    style={{
+                      width: `${skill.level}%`,
+                      transition: `width 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.04 + 0.1}s`,
+                    }}
+                    className="h-full rounded-full bg-accent"
+                  />
+                </div>
+              </Card>
+            </div>
+          ))}
+        </div>
+      )}
 
       <Card className="mt-12 p-6">
         <p className="mb-5 text-center text-sm tracking-widest text-text-muted uppercase">
@@ -139,3 +114,4 @@ export function SkillsTabs() {
     </div>
   );
 }
+

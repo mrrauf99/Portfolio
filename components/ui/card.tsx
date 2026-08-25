@@ -8,12 +8,7 @@ type CardProps = {
   style?: CSSProperties;
 };
 
-/**
- * Hairline-bordered surface — the replacement for the old glass-card blur
- * effect. Elevation comes from a soft directional shadow in light mode and
- * a lighter raised-surface color + border in dark mode (shadows barely
- * register on a near-black background).
- */
+/** Bordered elevated surface component */
 export function Card({ children, hover = false, className, style }: CardProps) {
   return (
     <div

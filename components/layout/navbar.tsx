@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,7 +8,7 @@ import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useActiveSection } from "@/hooks/use-active-section";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
-import { ACTIVE_INDICATOR_SPRING, ICON_CROSSFADE_CLASSES } from "@/lib/constants";
+import { ICON_CROSSFADE_CLASSES } from "@/lib/constants";
 
 const NAV_LINKS = [
   { label: "Home", id: "hero", href: "/#hero" },
@@ -27,7 +26,6 @@ export function Navbar() {
   const { progress, scrolled } = useScrollProgress();
   const activeId = useActiveSection(SECTION_IDS);
   const pathname = usePathname();
-  const prefersReducedMotion = useReducedMotion();
 
   const isHome = pathname === "/";
 
@@ -43,7 +41,6 @@ export function Navbar() {
   }, [mobileOpen]);
 
   const closeMobileMenu = () => setMobileOpen(false);
-
   const isLinkActive = (id: (typeof NAV_LINKS)[number]["id"]) => isHome && activeId === id;
 
   return (
@@ -79,10 +76,9 @@ export function Navbar() {
                     {link.label}
                   </Link>
                   {active && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute inset-x-0 -bottom-1.5 h-0.5 bg-accent"
-                      transition={prefersReducedMotion ? { duration: 0 } : ACTIVE_INDICATOR_SPRING}
+                    <span
+                      className="absolute inset-x-0 -bottom-1.5 h-0.5 bg-accent transition-all duration-200"
+                      aria-hidden="true"
                     />
                   )}
                 </li>
@@ -127,7 +123,7 @@ export function Navbar() {
         >
           <div
             className={`min-h-0 overflow-hidden transition-opacity ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
-              mobileOpen ? "opacity-100 duration-[400ms] delay-100" : "opacity-0 duration-150"
+              mobileOpen ? "opacity-100 duration-400 delay-100" : "opacity-0 duration-150"
             }`}
           >
             <ul className="flex flex-col gap-1 px-4 py-4">
@@ -155,3 +151,4 @@ export function Navbar() {
     </>
   );
 }
+

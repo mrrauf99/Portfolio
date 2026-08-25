@@ -3,18 +3,7 @@ import heroPortrait from "@/public/Abdul_Rauf.jpeg";
 import { HeroPortraitTilt } from "@/components/sections/hero-portrait-tilt-lazy";
 
 /**
- * Same fade-up used by the paragraph/buttons/tech list, at its own slot in
- * the hero's stagger (between the subtitle at 100ms and the paragraph at
- * 200ms) — the portrait reads as part of the same entrance instead of a
- * separately-timed element. Pure CSS, not framer-motion: a JS-driven
- * animation renders invisible during SSR and only starts once React
- * hydrates, which visibly lagged the CSS-animated text. `placeholder="blur"`
- * covers the network gap for the actual image bytes with a same-frame
- * blurred preview instead of a blank box.
- *
- * The cursor tilt (HeroPortraitTilt) is a separate, purely client-side
- * layer on top: it starts at an identity transform, so hydration timing
- * never affects what's visible, only whether hovering it does anything yet.
+ * Hero portrait with CSS fade-in, responsive sizing, and interactive tilt.
  */
 export function HeroPortrait() {
   return (
@@ -33,10 +22,9 @@ export function HeroPortrait() {
             src={heroPortrait}
             alt="Abdul Rauf, Full Stack Web Developer"
             placeholder="blur"
-            sizes="(min-width: 1024px) 24rem, (min-width: 640px) 20rem, 16rem"
+            sizes="(min-width: 1024px) 384px, (min-width: 640px) 320px, 90vw"
             className="h-full w-full object-cover"
-            preload
-            fetchPriority="high"
+            priority
           />
         </div>
       </HeroPortraitTilt>

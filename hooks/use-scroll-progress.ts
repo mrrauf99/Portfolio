@@ -7,10 +7,7 @@ type ScrollProgress = {
   scrolled: boolean;
 };
 
-/**
- * Single rAF-throttled scroll listener backing both the top progress bar
- * and the navbar's scrolled-background state.
- */
+/** Tracks scroll progress and background state via rAF */
 export function useScrollProgress(scrolledOffset = 50): ScrollProgress {
   const [state, setState] = useState<ScrollProgress>({ progress: 0, scrolled: false });
 

@@ -1,8 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Brain, Code2, Database, Layers } from "lucide-react";
-import { useMotionPreset, withStagger } from "@/hooks/use-motion-props";
+import { useInView } from "@/hooks/use-in-view";
 
 const HIGHLIGHTS = [
   {
@@ -27,24 +26,20 @@ const HIGHLIGHTS = [
   },
 ];
 
-/**
- * A hairline-divided list rather than a 2x2 grid of bordered cards — four
- * boxes of icon/heading/text read as page scaffolding, not content. The
- * divider rhythm matches the Experience timeline instead of introducing a
- * second container style.
- */
+/** Core technical highlights list with stagger animation */
 export function AboutHighlights() {
-  const fade = useMotionPreset({ y: 24 });
+  const { ref, isInView } = useInView({ once: true, rootMargin: "-40px" });
 
   return (
-    <div className="flex flex-col divide-y divide-border">
+    <div ref={ref} className="flex flex-col divide-y divide-border">
       {HIGHLIGHTS.map((item, index) => (
-        <motion.div
+        <div
           key={item.title}
-          initial={fade.initial}
-          whileInView={fade.visible}
-          viewport={{ once: true }}
-          transition={withStagger(fade.transition, index, 0.1)}
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? "translateY(0)" : "translateY(16px)",
+            transition: `opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`,
+          }}
           className="flex gap-4 py-5 first:pt-0 last:pb-0"
         >
           <item.icon size={20} className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />
@@ -52,8 +47,9 @@ export function AboutHighlights() {
             <h4 className="text-sm font-medium text-text">{item.title}</h4>
             <p className="mt-1.5 text-sm leading-relaxed text-text-muted">{item.desc}</p>
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );
 }
+

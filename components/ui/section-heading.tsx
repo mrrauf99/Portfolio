@@ -9,11 +9,7 @@ type SectionHeadingProps = {
   className?: string;
 };
 
-/**
- * Always renders an <h2> — the page H1 lives in the Hero headline or a
- * project's case-study title, never here. The accent mark above the title
- * signals a new section without a text eyebrow competing with the heading.
- */
+/** Section heading with accent divider and reveal animation */
 export function SectionHeading({ title, subtitle, align = "left", className = "" }: SectionHeadingProps) {
   const alignClass = align === "center" ? "text-center items-center" : "text-left items-start";
 

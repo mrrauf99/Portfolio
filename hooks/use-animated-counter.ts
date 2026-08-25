@@ -1,9 +1,10 @@
 "use client";
 
-import { useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useInView } from "@/hooks/use-in-view";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
+/** Animates number counting from 0 to end when scrolled into view */
 export function useAnimatedCounter(end: number, duration = 1800) {
   const { ref, isInView } = useInView({ threshold: 0.2 });
   const reduceMotion = useReducedMotion();
@@ -12,9 +13,6 @@ export function useAnimatedCounter(end: number, duration = 1800) {
   useEffect(() => {
     if (!isInView || reduceMotion) return;
 
-    // A count from 0 up to 1 has nowhere to go: Math.floor(1 * eased) stays 0
-    // for nearly the whole duration and only flips to 1 in the last frame,
-    // which reads as the stat popping in late instead of counting up.
     if (end <= 1) {
       const frame = requestAnimationFrame(() => setCount(end));
       return () => cancelAnimationFrame(frame);
@@ -42,3 +40,4 @@ export function useAnimatedCounter(end: number, duration = 1800) {
 
   return { count: displayCount, ref };
 }
+

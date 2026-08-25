@@ -1,7 +1,7 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
+import { useInView } from "@/hooks/use-in-view";
 
 type RevealProps = {
   children: ReactNode;
@@ -13,17 +13,32 @@ type RevealProps = {
   as?: "div" | "section";
 };
 
-/**
- * Scroll-triggered fade/rise for below-the-fold content. The framer-motion
- * implementation (reveal-motion.tsx) is loaded through `dynamic()` from here
- * — a Client Component — rather than from each Server Component that renders
- * a section (about.tsx, experience.tsx, etc.), because a dynamic import only
- * actually code-splits when it originates in a Client Component. Every
- * `Reveal` usage sits below the fold, so deferring its chunk costs nothing
- * visible: it still SSRs (default `ssr: true`), so the wrapped content is in
- * the initial HTML either way, just painted invisible (opacity: 0) until
- * scrolled into view — same as before this split.
- */
-export const Reveal = dynamic<RevealProps>(() =>
-  import("@/components/ui/reveal-motion").then((mod) => mod.RevealMotion)
-);
+/** Scroll-triggered fade and rise animation using IntersectionObserver and CSS transitions */
+export function Reveal({
+  children,
+  className = "",
+  y = 20,
+  delay = 0,
+  duration = 0.6,
+  once = true,
+  as = "div",
+}: RevealProps) {
+  const { ref, isInView } = useInView({ once, rootMargin: "-40px" });
+  const Tag = as;
+
+  return (
+    <Tag
+      ref={ref}
+      className={className}
+      style={{
+        opacity: isInView ? 1 : 0,
+        transform: isInView ? "translateY(0)" : `translateY(${y}px)`,
+        transition: `opacity ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s, transform ${duration}s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`,
+        willChange: isInView ? "auto" : "opacity, transform",
+      }}
+    >
+      {children}
+    </Tag>
+  );
+}
+

@@ -17,25 +17,7 @@ function getServerHashSnapshot() {
 }
 
 /**
- * Tracks which section id is currently most visible via IntersectionObserver
- * rather than a per-scroll-tick getBoundingClientRect loop over every section.
- *
- * A cross-page link (e.g. from /projects back to /#about) lands the browser
- * already scrolled to the target section before the observer's first
- * callback resolves the geometry. The URL hash bridges that gap; it's read
- * via useSyncExternalStore (not an effect) so the SSR/hydration pass never
- * disagrees with the client. Once the observer reports a real scroll
- * position, that takes over as the source of truth.
- *
- * The navbar lives in the root layout and never unmounts across route
- * changes, so `ids` alone isn't enough to rebind the observer: it's a
- * stable reference, and the section elements it points at get torn down
- * and recreated as the homepage's sections unmount/remount around a
- * /projects visit. Keying the effect on `pathname` too forces a rebind
- * against the currently-mounted elements instead of stale, detached ones.
- * `scrolledId` is reset the moment `pathname` changes (during render, not
- * in the effect) so a stale section from the previous page can't linger
- * as "active" while the new page's observer is still spinning up.
+ * Tracks the most visible section in viewport via IntersectionObserver with hash fallback.
  */
 export function useActiveSection(ids: readonly string[]): string {
   const pathname = usePathname();

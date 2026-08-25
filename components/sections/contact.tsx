@@ -1,6 +1,10 @@
-import { ContactForm } from "@/components/sections/contact-form";
+import dynamic from "next/dynamic";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+
+const ContactForm = dynamic(() =>
+  import("@/components/sections/contact-form").then((mod) => mod.ContactForm)
+);
 
 export function Contact() {
   return (
@@ -18,3 +22,4 @@ export function Contact() {
     </section>
   );
 }
+

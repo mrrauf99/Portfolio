@@ -12,11 +12,7 @@ function getServerSnapshot() {
   return false;
 }
 
-/**
- * True only after the client has hydrated. Used to guard rendering that
- * depends on browser-only state (e.g. resolved theme) without a
- * setState-in-effect cascade.
- */
+/** Returns true once client has hydrated */
 export function useMounted() {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

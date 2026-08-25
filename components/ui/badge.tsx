@@ -14,9 +14,7 @@ const variantClasses: Record<BadgeVariant, string> = {
   accent: "border-accent/40 text-accent",
 };
 
-/**
- * Rectangular hairline tag — replaces the neon pill badge. No fill, no glow.
- */
+/** Minimal tag badge */
 export function Badge({ children, variant = "default", className }: BadgeProps) {
   return (
     <span
