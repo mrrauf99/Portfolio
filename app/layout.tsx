@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar-lazy";
+import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { JsonLd } from "@/components/json-ld";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/constants";
@@ -57,9 +58,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd data={personJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
         <ThemeProvider>
+          <a href="#main-content" className="fixed top-3 left-4 z-[60] -translate-y-24 rounded-sm bg-accent px-4 py-3 font-medium text-accent-contrast focus:translate-y-0">
+            Skip to content
+          </a>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" tabIndex={-1} className="flex-1 scroll-mt-20">{children}</main>
           <Footer />
+          <WhatsAppButton />
         </ThemeProvider>
       </body>
     </html>

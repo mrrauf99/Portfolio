@@ -1,12 +1,12 @@
 "use client";
 
 import { AlertCircle, CheckCircle, Send } from "lucide-react";
-import type { ChangeEvent } from "react";
+import { useEffect, useRef, type ChangeEvent } from "react";
 import { Card } from "@/components/ui/card";
 import { useContactForm } from "@/hooks/use-contact-form";
 
 const inputClasses =
-  "w-full rounded-sm border bg-bg px-4 py-3 text-sm text-text placeholder-text-muted/60 transition-colors duration-150 focus:outline-none";
+  "w-full scroll-mt-24 rounded-sm border bg-bg px-4 py-3 text-base text-text placeholder-text-muted transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 type FormFieldProps = {
   id: string;
@@ -34,7 +34,7 @@ function FormField({
   rows,
 }: FormFieldProps) {
   const errorId = error ? `${id}-error` : undefined;
-  const fieldClasses = `${inputClasses} ${as === "textarea" ? "resize-none " : ""}${
+  const fieldClasses = `${inputClasses} ${as === "textarea" ? "min-h-36 resize-y " : ""}${
     error ? "border-red-500/50 focus:border-red-500" : "border-border focus:border-accent"
   }`;
 
@@ -48,6 +48,7 @@ function FormField({
           id={id}
           name={name}
           rows={rows}
+          required
           value={value}
           onChange={onChange}
           placeholder={placeholder}
@@ -60,6 +61,8 @@ function FormField({
           id={id}
           name={name}
           type={type}
+          required
+          autoComplete={name === "name" || name === "email" ? name : undefined}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
@@ -69,7 +72,7 @@ function FormField({
         />
       )}
       {error && (
-        <p id={errorId} className="mt-1 text-xs text-red-500">
+        <p id={errorId} className="mt-1 text-sm text-red-700 dark:text-red-400">
           {error}
         </p>
       )}
@@ -80,11 +83,21 @@ function FormField({
 export function ContactForm() {
   const { formData, errors, error, loading, submitted, setSubmitted, handleChange, handleSubmit } =
     useContactForm();
+  const successRef = useRef<HTMLDivElement>(null);
+  const wasSubmitted = useRef(false);
+
+  useEffect(() => {
+    if (submitted) successRef.current?.focus();
+    else if (wasSubmitted.current) document.getElementById("contact-name")?.focus();
+    wasSubmitted.current = submitted;
+  }, [submitted]);
 
   return (
-    <Card className="p-8">
+    <Card className="p-5 sm:p-8">
       {submitted ? (
-        <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
+        // A status region groups the confirmation heading, copy, and next action.
+        // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role
+        <div ref={successRef} tabIndex={-1} role="status" className="flex scroll-mt-24 flex-col items-center justify-center gap-4 py-12 text-center">
           <CheckCircle size={48} className="text-accent" aria-hidden="true" />
           <h3 className="text-xl font-medium text-text">Message sent!</h3>
           <p className="max-w-xs text-sm text-text-muted">
@@ -99,7 +112,8 @@ export function ContactForm() {
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} noValidate className="space-y-5">
+        <form onSubmit={handleSubmit} noValidate aria-busy={loading} className="space-y-5">
+          <p className="text-sm text-text-muted">All fields are required.</p>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormField
               id="contact-name"
@@ -148,7 +162,7 @@ export function ContactForm() {
           {error && (
             <div
               role="alert"
-              className="flex items-start gap-3 rounded-sm border border-red-500/30 bg-red-500/5 p-4 text-sm text-red-500"
+              className="flex items-start gap-3 rounded-sm border border-red-500/30 bg-red-500/5 p-4 text-sm text-red-700 dark:text-red-400"
             >
               <AlertCircle size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
               <span>{error}</span>

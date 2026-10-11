@@ -10,7 +10,6 @@ Personal portfolio of **Abdul Rauf**, a full stack web developer, built with Nex
 * React
 * TypeScript
 * Tailwind CSS
-* Framer Motion
 * next-themes
 * Resend
 

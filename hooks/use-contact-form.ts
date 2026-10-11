@@ -22,7 +22,7 @@ export function useContactForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const validateForm = (): boolean => {
+  const validateForm = (form: HTMLFormElement): boolean => {
     const tempErrors: ContactFormData = { name: "", email: "", subject: "", message: "" };
     let isValid = true;
 
@@ -59,6 +59,13 @@ export function useContactForm() {
     }
 
     setErrors(tempErrors);
+    const firstInvalidField = Object.keys(tempErrors).find(
+      (field) => tempErrors[field as keyof ContactFormData]
+    );
+    if (firstInvalidField) {
+      const field = form.elements.namedItem(firstInvalidField);
+      if (field instanceof HTMLElement) field.focus();
+    }
     return isValid;
   };
 
@@ -74,8 +81,9 @@ export function useContactForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (loading) return;
 
-    if (!validateForm()) {
+    if (!validateForm(event.currentTarget)) {
       return;
     }
 

@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FaGithub } from "react-icons/fa";
 import { JsonLd } from "@/components/json-ld";
@@ -108,6 +109,12 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           </div>
         </div>
 
+        {project.featured?.screenshot && (
+          <div className="mt-10 overflow-hidden rounded-md border border-border">
+            <Image src={project.featured.screenshot.src} alt={project.featured.screenshot.alt} width={project.featured.screenshot.width} height={project.featured.screenshot.height} unoptimized={project.featured.screenshot.lossless} sizes="(min-width: 768px) 720px, 100vw" className="h-auto w-full" />
+          </div>
+        )}
+
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
           {project.stats.map((stat) => (
             <Card key={stat.label} className="p-4 text-center">
@@ -118,6 +125,13 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </div>
 
         <Divider className="my-12" />
+
+        {project.featured && (
+          <section className="mb-12">
+            <h2 className="text-2xl font-medium text-text">My contribution</h2>
+            <p className="mt-4 leading-relaxed text-text-muted">{project.featured.contribution}</p>
+          </section>
+        )}
 
         <section>
           <h2 className="text-2xl font-medium text-text">Problem</h2>

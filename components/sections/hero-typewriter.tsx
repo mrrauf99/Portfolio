@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const ROLES = [
   "Full Stack Web Developer",
@@ -14,12 +15,14 @@ const ROLES = [
 const MAX_ROLE_LENGTH = Math.max(...ROLES.map((role) => role.length));
 
 export function HeroTypewriter() {
+  const reducedMotion = useReducedMotion();
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState<string>(ROLES[0]);
   const [isDeleting, setIsDeleting] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
+    if (reducedMotion) return;
     const word = ROLES[roleIndex % ROLES.length] ?? ROLES[0];
 
     const tick = () => {
@@ -43,18 +46,17 @@ export function HeroTypewriter() {
 
     timeoutRef.current = setTimeout(tick, isDeleting ? 45 : 75);
     return () => clearTimeout(timeoutRef.current);
-  }, [displayText, isDeleting, roleIndex]);
+  }, [displayText, isDeleting, roleIndex, reducedMotion]);
 
   return (
     <span
-      className="inline-block whitespace-nowrap"
+      className="inline-block max-w-full"
       style={{ minWidth: `min(${MAX_ROLE_LENGTH + 1}ch, 100%)` }}
-      aria-live="polite"
-      aria-atomic="true"
     >
-      <span>{displayText}</span>
+      <span className="sr-only">{ROLES[0]}</span>
+      <span aria-hidden="true">{reducedMotion ? ROLES[0] : displayText}</span>
       <span
-        className="ml-0.5 inline-block text-accent animate-[blink_1.1s_step-end_infinite]"
+        className="ml-0.5 inline-block text-accent animate-[blink_1.1s_step-end_infinite] motion-reduce:hidden"
         aria-hidden="true"
       >
         |

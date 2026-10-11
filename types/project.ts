@@ -27,6 +27,19 @@ export interface Project {
   approach: string[];
   keyDecisions: ProjectDecision[];
   outcomes?: string[];
+  featured?: {
+    screenshot?: {
+      src: string;
+      width: number;
+      height: number;
+      lossless?: boolean;
+      alt: string;
+    };
+    problem: string;
+    contribution: string;
+    decision: string;
+    result: string;
+  };
 }
 
 export interface AdditionalProject {

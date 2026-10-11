@@ -8,8 +8,8 @@ export function Projects() {
     <section id="projects" className="scroll-mt-20 border-t border-border py-16 md:py-24">
       <Container>
         <SectionHeading
-          title="Selected work"
-          subtitle="A closer look at a few projects, including the problems I ran into and how I solved them."
+          title="Featured work"
+          subtitle="Three projects, from the problem to what I built and why."
         />
 
         <div className="mt-12">
@@ -17,9 +17,9 @@ export function Projects() {
         </div>
 
         <div className="mt-20">
-          <h3 className="text-xl font-medium text-text">More things I&apos;ve built</h3>
+          <h3 className="text-2xl font-medium text-text">More projects</h3>
           <p className="mt-2 max-w-2xl text-sm text-text-muted">
-            A curated collection of projects spanning desktop systems, tools, and web experiments.
+            Five more case studies across web development, mobile apps, machine learning, and security.
           </p>
           <div className="mt-8">
             <AdditionalProjects />

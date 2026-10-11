@@ -1,40 +1,40 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { Reveal } from "@/components/ui/reveal";
+import { Button } from "@/components/ui/button";
 import { projects } from "@/data/projects";
 
 export function FeaturedProjects() {
   return (
-    <div className="space-y-4">
-      {projects.map((project, index) => (
-        <Reveal key={project.slug} y={20} delay={Math.min(index, 5) * 0.08}>
-          <Link href={`/projects/${project.slug}`} className="group block">
-            <Card hover className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 className="text-lg font-medium text-text transition-colors duration-150 group-hover:text-accent">
-                  {project.title}
-                </h3>
-                <p className="mt-1 max-w-xl text-sm text-text-muted">{project.tagline}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {project.techStack.map((tech) => (
-                    <Badge key={tech}>{tech}</Badge>
-                  ))}
-                </div>
+    <div className="space-y-8">
+      {projects.filter((project) => project.featured).map((project) => {
+        const evidence = project.featured!;
+        return (
+          <article key={project.slug} aria-labelledby={`featured-${project.slug}`} className="rounded-md border border-border bg-bg-raised">
+            <div className="p-5 sm:p-8">
+              <h3 id={`featured-${project.slug}`} className="text-2xl font-medium text-text sm:text-3xl">
+                <Link href={`/projects/${project.slug}`} className="transition-colors hover:text-accent">{project.title}</Link>
+              </h3>
+              <p className="mt-2 text-sm text-text-muted">{project.role} <span aria-hidden="true">·</span> {project.year}</p>
+              <dl className="mt-6 grid gap-6 text-sm leading-relaxed md:grid-cols-2">
+                {[["Problem", evidence.problem], ["My contribution", evidence.contribution], ["Technical decision", evidence.decision], ["Result", evidence.result]].map(([label, detail]) => (
+                  <div key={label}>
+                    <dt className="font-medium text-text">{label}</dt>
+                    <dd className="mt-1 text-text-muted">{detail}</dd>
+                  </div>
+                ))}
+              </dl>
+              <ul aria-label={`${project.title} technologies`} className="mt-6 flex flex-wrap gap-2">
+                {project.techStack.map((tech) => <li key={tech}><Badge>{tech}</Badge></li>)}
+              </ul>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button href={`/projects/${project.slug}`} aria-label={`Read ${project.title} case study`}>Case study <ArrowRight size={16} aria-hidden="true" /></Button>
+                {project.links.live && <Button variant="outline" href={project.links.live} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${project.title} live site (opens in a new tab)`}>Live site <ExternalLink size={14} aria-hidden="true" /></Button>}
               </div>
-              <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-medium text-accent">
-                View case study
-                <ArrowRight
-                  size={14}
-                  aria-hidden="true"
-                  className="transition-transform duration-200 group-hover:translate-x-1"
-                />
-              </span>
-            </Card>
-          </Link>
-        </Reveal>
-      ))}
+            </div>
+          </article>
+        );
+      })}
     </div>
   );
 }

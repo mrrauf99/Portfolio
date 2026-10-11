@@ -47,4 +47,5 @@ next-env.d.ts
 # agent rules & prompt files
 AGENTS.md
 CLAUDE.md
+.impeccable/
 

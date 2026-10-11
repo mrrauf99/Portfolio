@@ -1,4 +1,4 @@
-import type { Experience, Stat } from "@/types/experience";
+import type { Experience } from "@/types/experience";
 
 export const experiences: Experience[] = [
   {
@@ -33,11 +33,4 @@ export const experiences: Experience[] = [
     ],
     tech: ["Python", "C++", "Data Structures", "Algorithms", "Database Systems", "Machine Learning"],
   },
-];
-
-export const stats: Stat[] = [
-  { label: "Projects Built", value: 16, suffix: "+" },
-  { label: "Technologies", value: 13, suffix: "+" },
-  { label: "Years Active", value: 1, suffix: "+" },
-  { label: "GitHub Repos", value: 20, suffix: "+" },
 ];
