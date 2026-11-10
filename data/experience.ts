@@ -12,7 +12,7 @@ export const experiences: Experience[] = [
     achievements: [
       "Shipped Article Hub: a full-stack publishing platform with RBAC, JWT auth, and PostgreSQL",
       "Built BotGuard Lab: a bot detection platform using behavioral heuristics and real-time risk scoring",
-      "Developed Symptom Checker AI: a machine learning healthcare assistant with 92%+ accuracy",
+      "Developed Symptom Checker AI: an educational symptom-classification prototype using scikit-learn and Flask",
       "Created an on-device object detection app using Flutter and TensorFlow Lite",
       "Delivered 16+ projects across web, desktop, and ML domains",
     ],

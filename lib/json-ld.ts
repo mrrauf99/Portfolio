@@ -5,11 +5,14 @@ export function projectJsonLd(project: Project) {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
+    "@id": `${SITE_URL}/projects/${project.slug}#software`,
     name: project.title,
     description: project.tagline,
-    programmingLanguage: project.techStack,
+    programmingLanguage: project.programmingLanguages,
+    author: { "@id": `${SITE_URL}/#person` },
+    mainEntityOfPage: `${SITE_URL}/projects/${project.slug}`,
+    url: `${SITE_URL}/projects/${project.slug}`,
     ...(project.links.github ? { codeRepository: project.links.github } : {}),
-    ...(project.links.live ? { url: project.links.live } : {}),
   };
 }
 
@@ -17,6 +20,7 @@ export function personJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": `${SITE_URL}/#person`,
     name: SITE_NAME,
     url: SITE_URL,
     jobTitle: "Full Stack Web Developer",
@@ -28,8 +32,10 @@ export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
+    publisher: { "@id": `${SITE_URL}/#person` },
   };
 }

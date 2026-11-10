@@ -1,0 +1,5 @@
+abdulrauf.dev-audit/
+.playwright-mcp/
+.impeccable/
+.claude/
+.env*

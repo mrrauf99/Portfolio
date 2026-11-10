@@ -18,6 +18,7 @@ export interface Project {
   role: string;
   status: ProjectStatus;
   techStack: string[];
+  programmingLanguages: string[];
   stats: ProjectStat[];
   links: {
     github?: string;
@@ -32,7 +33,6 @@ export interface Project {
       src: string;
       width: number;
       height: number;
-      lossless?: boolean;
       alt: string;
     };
     problem: string;

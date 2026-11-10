@@ -1,0 +1,44 @@
+name: Weekly production monitoring
+
+on:
+  schedule:
+    - cron: '17 7 * * 2' # Tuesdays, 12:17 Pakistan time (UTC+05:00)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-production-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    name: Check ${{ matrix.check }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        check: [availability, sitemap, metadata, schema]
+    env:
+      PRODUCTION_URL: https://abdulrauf.dev
+    steps:
+      - name: Check out monitoring scripts
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Use Node.js 24
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - name: Run public production check
+        run: node scripts/check-seo.mjs "$PRODUCTION_URL" monitoring-report.json "${{ matrix.check }}"
+      - name: Preserve monitoring results
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: monitoring-${{ matrix.check }}
+          path: monitoring-report.json
+          if-no-files-found: error
+          retention-days: 35

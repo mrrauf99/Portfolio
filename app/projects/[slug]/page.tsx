@@ -111,7 +111,14 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
 
         {project.featured?.screenshot && (
           <div className="mt-10 overflow-hidden rounded-md border border-border">
-            <Image src={project.featured.screenshot.src} alt={project.featured.screenshot.alt} width={project.featured.screenshot.width} height={project.featured.screenshot.height} unoptimized={project.featured.screenshot.lossless} sizes="(min-width: 768px) 720px, 100vw" className="h-auto w-full" />
+            <Image
+              src={project.featured.screenshot.src}
+              alt={project.featured.screenshot.alt}
+              width={project.featured.screenshot.width}
+              height={project.featured.screenshot.height}
+              sizes="(min-width: 1024px) 704px, (min-width: 768px) 720px, (min-width: 640px) calc(100vw - 48px), calc(100vw - 32px)"
+              className="h-auto w-full"
+            />
           </div>
         )}
 

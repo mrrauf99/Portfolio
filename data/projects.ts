@@ -15,6 +15,7 @@ export const projects: Project[] = [
     role: "Full Stack Developer · Personal Project",
     status: "live",
     techStack: ["React", "Node.js", "Express.js", "PostgreSQL", "Tailwind CSS"],
+    programmingLanguages: ["JavaScript", "CSS", "HTML"],
     stats: [
       { label: "Stack", value: "PERN" },
       { label: "Roles", value: "3 Types" },
@@ -55,9 +56,8 @@ export const projects: Project[] = [
     featured: {
       screenshot: {
         src: "/projects/rcet-university-website.webp",
-        width: 1894,
-        height: 999,
-        lossless: true,
+        width: 1600,
+        height: 844,
         alt: "RCET university website showing the campus, main navigation, and university information",
       },
       problem: "Inconsistent layouts, confusing navigation, and slow page loads made university information harder to find and created a frustrating browsing experience.",
@@ -71,6 +71,7 @@ export const projects: Project[] = [
     role: "Frontend Developer / University Project",
     status: "live",
     techStack: ["React", "Vite", "JavaScript", "Tailwind CSS", "Material UI"],
+    programmingLanguages: ["JavaScript", "CSS"],
     stats: [
       { label: "Scope", value: "Full Website" },
       { label: "Focus", value: "Design & UX" },
@@ -125,6 +126,7 @@ export const projects: Project[] = [
     role: "Mobile Developer (Solo)",
     status: "archived",
     techStack: ["Flutter", "TensorFlow Lite", "Dart"],
+    programmingLanguages: ["Dart"],
     stats: [
       { label: "Platform", value: "iOS + Android" },
       { label: "Inference", value: "On-device" },
@@ -164,7 +166,6 @@ export const projects: Project[] = [
         src: "/projects/mehar-motors.webp",
         width: 1797,
         height: 993,
-        lossless: true,
         alt: "Mehar Motors car rental website with fleet browsing and a vehicle preview",
       },
       problem: "Customers needed to browse cars and send rental inquiries without repeating their vehicle and travel details.",
@@ -178,6 +179,7 @@ export const projects: Project[] = [
     role: "Frontend Developer · Client Project",
     status: "live",
     techStack: ["Next.js", "React", "JavaScript", "CSS"],
+    programmingLanguages: ["JavaScript", "CSS"],
     stats: [
       { label: "Fleet", value: "10 Vehicles" },
       { label: "Inquiries", value: "WhatsApp" },
@@ -226,6 +228,7 @@ export const projects: Project[] = [
     role: "Frontend Developer",
     status: "live",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    programmingLanguages: ["TypeScript", "CSS"],
     stats: [
       { label: "Audience", value: "Founders" },
       { label: "Showcase", value: "Search + Filter" },
@@ -265,6 +268,7 @@ export const projects: Project[] = [
     role: "Frontend Developer",
     status: "live",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Embla Carousel"],
+    programmingLanguages: ["TypeScript", "CSS"],
     stats: [
       { label: "Format", value: "Single Page" },
       { label: "Gallery", value: "Embla" },
@@ -299,13 +303,14 @@ export const projects: Project[] = [
   {
     slug: "symptom-checker-ai",
     title: "Symptom Checker AI",
-    tagline: "A machine learning healthcare assistant that predicts likely conditions from reported symptoms.",
+    tagline: "An educational machine learning prototype that classifies symptom inputs; not a diagnostic tool.",
     year: "2025",
     role: "ML Engineer (Solo)",
     status: "archived",
     techStack: ["Python", "Machine Learning", "scikit-learn", "Flask"],
+    programmingLanguages: ["Python", "JavaScript", "CSS", "HTML"],
     stats: [
-      { label: "Accuracy", value: "92%+" },
+      { label: "Scope", value: "Educational" },
       { label: "Model", value: "scikit-learn" },
       { label: "Type", value: "ML / AI" },
     ],
@@ -330,7 +335,10 @@ export const projects: Project[] = [
         detail: "Separating the model behind a REST API keeps the ML pipeline swappable without touching the frontend.",
       },
     ],
-    outcomes: ["92%+ prediction accuracy on the evaluation set"],
+    outcomes: [
+      "Built a symptom-classification prototype with a Flask API and a symptom-entry interface.",
+      "This is an educational project, not a diagnostic tool. No independently verified accuracy benchmark or clinical validation is claimed.",
+    ],
   },
   {
     slug: "botguard-lab",
@@ -340,6 +348,7 @@ export const projects: Project[] = [
     role: "Full Stack Developer (Solo)",
     status: "in-progress",
     techStack: ["MongoDB", "Express.js", "React", "Node.js"],
+    programmingLanguages: ["JavaScript", "CSS", "HTML"],
     stats: [
       { label: "Stack", value: "MERN" },
       { label: "Detection", value: "Real-time" },
