@@ -12,9 +12,9 @@ export function Hero() {
           <h1 className="text-5xl leading-[1.1] font-medium text-text sm:text-6xl lg:text-7xl">
             Hi, I&apos;m <span className="text-accent">Abdul Rauf</span>
           </h1>
-          <p className="mt-4 min-h-[2.5rem] animate-[fade-up_0.7s_ease-out_both] text-2xl font-medium text-text-muted [animation-delay:100ms] sm:text-3xl"><HeroTypewriter /></p>
+          <p className="mt-4 animate-[fade-up_0.7s_ease-out_both] text-2xl font-medium text-text-muted [animation-delay:100ms] sm:text-3xl"><HeroTypewriter /></p>
           <p className="mt-6 max-w-lg animate-[fade-up_0.7s_ease-out_both] text-lg leading-relaxed text-text-muted [animation-delay:200ms]">
-            Full stack developer building web apps, APIs, and the occasional ML project end to end, from database schema to UI. Currently open to full-time roles and freelance work.
+            I build modern websites, AI chatbots, virtual receptionists, and custom AI-powered apps for businesses. They automate everyday tasks and handle customer inquiries 24/7, so your team spends less time on manual work and customers can get help when they need it.
           </p>
           <div className="mt-8 flex flex-wrap animate-[fade-up_0.7s_ease-out_both] gap-3 [animation-delay:300ms]">
             <Button href="/Resume.pdf" prefetch={false} target="_blank" rel="noopener noreferrer"><FileText size={16} aria-hidden="true" />View Resume<span className="sr-only"> (opens in new tab)</span></Button>

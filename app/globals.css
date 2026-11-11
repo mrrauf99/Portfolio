@@ -2,7 +2,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Warm editorial color palette and design tokens */
 :root {
   --ink-50: #fafaf7;
   --ink-100: #f2efe9;
@@ -158,7 +157,6 @@
   }
 }
 
-/* Hero headline smooth fade and rise entrance */
 @keyframes ink-focus {
   from {
     opacity: 0;

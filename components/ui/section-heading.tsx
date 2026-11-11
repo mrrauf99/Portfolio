@@ -9,7 +9,6 @@ type SectionHeadingProps = {
   className?: string;
 };
 
-/** Section heading with accent divider and reveal animation */
 export function SectionHeading({ title, subtitle, align = "left", className = "" }: SectionHeadingProps) {
   const alignClass = align === "center" ? "text-center items-center" : "text-left items-start";
 

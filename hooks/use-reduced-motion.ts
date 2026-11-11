@@ -16,7 +16,6 @@ function getServerSnapshot() {
   return false;
 }
 
-/** Checks if the user prefers reduced motion */
 export function useReducedMotion(): boolean {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

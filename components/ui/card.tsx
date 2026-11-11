@@ -8,7 +8,6 @@ type CardProps = {
   style?: CSSProperties;
 };
 
-/** Bordered elevated surface component */
 export function Card({ children, hover = false, className, style }: CardProps) {
   return (
     <div

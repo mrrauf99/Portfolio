@@ -14,7 +14,6 @@ const variantClasses: Record<BadgeVariant, string> = {
   accent: "border-accent/40 text-accent",
 };
 
-/** Minimal tag badge */
 export function Badge({ children, variant = "default", className }: BadgeProps) {
   return (
     <span

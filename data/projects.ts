@@ -22,7 +22,6 @@ export const projects: Project[] = [
       { label: "Type", value: "Full Stack" },
     ],
     links: {
-      github: "https://github.com/mrrauf99/Article-Hub",
       live: "https://articlehub.me",
     },
     problem:

@@ -13,7 +13,6 @@ type RevealProps = {
   as?: "div" | "section";
 };
 
-/** Scroll-triggered fade and rise animation using IntersectionObserver and CSS transitions */
 export function Reveal({
   children,
   className = "",

@@ -5,7 +5,6 @@ type DividerProps = {
   className?: string;
 };
 
-/** Structural divider line */
 export function Divider({ variant = "hairline", className }: DividerProps) {
   if (variant === "accent") {
     return <div className={cn("h-0.5 w-12 bg-accent", className)} aria-hidden="true" />;

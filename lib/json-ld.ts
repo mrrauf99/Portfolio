@@ -23,7 +23,7 @@ export function personJsonLd() {
     "@id": `${SITE_URL}/#person`,
     name: SITE_NAME,
     url: SITE_URL,
-    jobTitle: "Full Stack Web Developer",
+    jobTitle: "Full Stack Web Engineer",
     sameAs: ["https://github.com/mrrauf99", "https://www.linkedin.com/in/abdulrauf-dev/"],
   };
 }

@@ -4,15 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const ROLES = [
-  "Full Stack Web Developer",
-  "MERN Stack Developer",
-  "React Developer",
-  "Node.js Developer",
-  "Problem Solver",
+  "Websites & Web Applications",
+  "AI Chatbots & Virtual Receptionists",
+  "Business Automation",
 ] as const;
-
-// Reserve space for longest role to avoid layout shifts
-const MAX_ROLE_LENGTH = Math.max(...ROLES.map((role) => role.length));
 
 export function HeroTypewriter() {
   const reducedMotion = useReducedMotion();
@@ -49,17 +44,18 @@ export function HeroTypewriter() {
   }, [displayText, isDeleting, roleIndex, reducedMotion]);
 
   return (
-    <span
-      className="inline-block max-w-full"
-      style={{ minWidth: `min(${MAX_ROLE_LENGTH + 1}ch, 100%)` }}
-    >
+    <span className="inline-grid w-full grid-cols-1 align-top">
       <span className="sr-only">{ROLES[0]}</span>
-      <span aria-hidden="true">{reducedMotion ? ROLES[0] : displayText}</span>
-      <span
-        className="ml-0.5 inline-block text-accent animate-[blink_1.1s_step-end_infinite] motion-reduce:hidden"
-        aria-hidden="true"
-      >
-        |
+      {ROLES.map((role) => (
+        <span key={role} aria-hidden="true" className="invisible [grid-area:1/1]">
+          {role}<span className="ml-0.5 inline-block">|</span>
+        </span>
+      ))}
+      <span aria-hidden="true" className="[grid-area:1/1]">
+        {reducedMotion ? ROLES[0] : displayText}
+        <span className="ml-0.5 inline-block text-accent animate-[blink_1.1s_step-end_infinite] motion-reduce:hidden">
+          |
+        </span>
       </span>
     </span>
   );

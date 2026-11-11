@@ -12,7 +12,6 @@ function getServerSnapshot() {
   return false;
 }
 
-/** Returns true once client has hydrated */
 export function useMounted() {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

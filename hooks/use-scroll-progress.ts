@@ -7,7 +7,6 @@ type ScrollProgress = {
   scrolled: boolean;
 };
 
-/** Tracks scroll progress and background state via rAF */
 export function useScrollProgress(scrolledOffset = 50): ScrollProgress {
   const [state, setState] = useState<ScrollProgress>({ progress: 0, scrolled: false });
 

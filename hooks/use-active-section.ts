@@ -16,9 +16,6 @@ function getServerHashSnapshot() {
   return "";
 }
 
-/**
- * Tracks the most visible section in viewport via IntersectionObserver with hash fallback.
- */
 export function useActiveSection(ids: readonly string[]): string {
   const pathname = usePathname();
   const [scrolledId, setScrolledId] = useState<string | null>(null);
