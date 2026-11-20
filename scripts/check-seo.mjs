@@ -96,7 +96,7 @@ for (const path of paths) {
     }
   } else if (path === "/") {
     currentGroup = "metadata";
-    check(/Full Stack Web Developer/.test(title) && /React.*Next\.js/.test(title), "Homepage title omits the role or specialization");
+    check(/\bWeb Development\b/i.test(title) && /\bAI Automation\b/i.test(title), "Homepage title must include Web Development and AI Automation");
     const portrait = html.match(/<img\b[^>]*>/i)?.[0] ?? "";
     check(attribute(portrait, "loading") === "eager" && attribute(portrait, "fetchPriority") === "high", "Hero image is not eager/high priority");
   }
